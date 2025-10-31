@@ -18,27 +18,27 @@ The <thread> header in C++ provides a simple and powerfull interface for managin
 @ Create a Thread -
 The std::thread class represent the thread. Threading a instance of this class will create a thread with given callable as its task.
 
-thread thread_name(callable);
+    thread thread_name(callable);
 
 where,
 
 1. thread_name is object of thread class.
 2. callable is a callable object like for pointer, function object (functors).
 
-#inlcude<bits/stdc++.h>
-#include<thread>
-using namespace std;
+   #inlcude<bits/stdc++.h>
+   #include<thread>
+   using namespace std;
 
-void func(){
-cout << "Hello from the thread!" << endl ;
-}
+   void func(){
+   cout << "Hello from the thread!" << endl ;
+   }
 
-int main(){
-thread t(func);
-t.join;
-cout << "Main thread fininshed." << endl;
-return 0;
-}
+   int main(){
+   thread t(func);
+   t.join;
+   cout << "Main thread fininshed." << endl;
+   return 0;
+   }
 
 output -
 Hello from the thread!
@@ -51,22 +51,22 @@ Main thread fininshed.
 
 @ One main thread and Multiple worker thread -
 
-#inlcude<bits/stdc++.h>
-#include<thread>
-#include<chrono>
-using namespace std;
+    #inlcude<bits/stdc++.h>
+    #include<thread>
+    #include<chrono>
+    using namespace std;
 
-void worker (int id){
-cout << "Worker" << id << "started on thread" << std::this_thread::get_id() << endl;
-this_thread::sleep_for(chrono::milliseconds(100\*(id+1)));
+    void worker (int id){
+    cout << "Worker" << id << "started on thread" << std::this_thread::get_id() << endl;
+    this_thread::sleep_for(chrono::milliseconds(100\*(id+1)));
 
     cout<<"worker" << id << "finished in thread" << std::this_thread::get_id() << endl;
 
-}
+    }
 
-int main(){
-const int num_worker = 4;
-vector<thread> workers;
+    int main(){
+    const int num_worker = 4;
+    vector<thread> workers;
 
     for (int i =0; i<num_workers; ++i){
         workers.emplace_back(worker.i);
@@ -80,7 +80,7 @@ vector<thread> workers;
 
     return 0;
 
-}
+    }
 
 @ Joinig a thread -
 
