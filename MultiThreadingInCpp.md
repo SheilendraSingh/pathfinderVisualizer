@@ -1,15 +1,14 @@
 @ Multi Threading in C++ -
 
 1. Multithreading is a technique where a program is divided into smaller units of execution called thread.
-2. Each thread run independently but shares resources like memory, allowing tasks to ve performed simultaneously.
+2. Each thread run independently but shares resources like memory, allowing tasks to be performed simultaneously.
 3. This helps improve performance by utilizing multiple CPU cores efficiently.
 
 @ Importance of Multithreading -
 
 1. Leverages Cpu cores to execute tasks in parallel, reducing overall execution time.
-2. Keeps application responsive by running background operation withouot blocking the main theard.
+2. Keeps application responsive by running background operation without blocking the main theard.
    For example - In a word document one thread does auto formatting along with the main thread.
-
 3. Makes it easier to handle large workloads or multiple simultaneous operations such as servers or real-time systems.
 
 @ Common Operations on Thread -
@@ -87,7 +86,7 @@ Main thread fininshed.
 1. Before joining a thread it is preferred to check if the thread can be joined using the joinable() method.
 2. The joinable() method checks wheater the thread is in a valid state for these operations or not.
 
-thread_name.joinable();
+   thread_name.joinable();
 
 The joinable() method return true if the thread is joinable else return false.
 
@@ -95,7 +94,7 @@ The joinable() method return true if the thread is joinable else return false.
 
 To joinig two threads in C++ we can use join() function which is called inside the body of the thread to which the specified thread is to be joined.
 
-thread_name.join();
+    thread_name.join();
 
 The thread.join function throws std::system_error if the thread is not joinable.
 
@@ -105,54 +104,54 @@ Note :- Joining two non-main thread is risky as it may lead to race condition or
 
 A joined thread can be detached from the calling thread using the detach() member function of the std::thread class. When a thread is detached it runs independently in the background, and the other thread does not waits for it to finish.
 
-thread_name.detach();
+    thread_name.detach();
 
 @ Getting Thread ID
 
 In multithreading each thread has a unique Id which can be obtained by using the get_id() function.
 
-thread_name.get_id();
+    thread_name.get_id();
 
 The get_id() function return an object represents the thread's ID.
 
-#include<bits/stdc++.h>
-#include<thread>
-#include<chrono>
+    #include<bits/stdc++.h>
+    #include<thread>
+    #include<chrono>
 
-using namespace std;
+    using namespace std;
 
-void task1(){
-cout << "Thread 1 is running. ID: " << this_thread :: get_id() << "\n";
-}
-
-void task2(){
-cout << "Thread 1 is running. ID: " << this_thread :: get_id() << "\n";
-}
-
-int main(){
-thread t1(tasks1);
-thread t2(tasks2);
-
-    cout << "t1 ID: " << t1.get_id() << "\n;
-    cout << "t2 ID: " << t2.get_id() << "\n;
-
-    if(t1.joinable()){
-        ti.join();
-        cout << "t1 joined \n" ;
+    void task1(){
+    cout << "Thread 1 is running. ID: " << this_thread :: get_id() << "\n";
     }
 
-    if(t2.joinable()){
-        t2.detach()
-        cout << "t2 detached \n";
+    void task2(){
+    cout << "Thread 1 is running. ID: " << this_thread :: get_id() << "\n";
     }
 
-    cout << "Main thread sleeping for 1 second....\n";
-    this_thread::sleep_for(chrono::seconds(1));
-    cout << "Main thread awake.\n";
+    int main(){
+    thread t1(tasks1);
+    thread t2(tasks2);
 
-    return 0;
+        cout << "t1 ID: " << t1.get_id() << "\n;
+        cout << "t2 ID: " << t2.get_id() << "\n;
 
-}
+        if(t1.joinable()){
+            ti.join();
+            cout << "t1 joined \n" ;
+        }
+
+        if(t2.joinable()){
+            t2.detach()
+            cout << "t2 detached \n";
+        }
+
+        cout << "Main thread sleeping for 1 second....\n";
+        this_thread::sleep_for(chrono::seconds(1));
+        cout << "Main thread awake.\n";
+
+        return 0;
+
+    }
 
 Output -
 t1 ID: 0x1234
@@ -180,19 +179,19 @@ In C++, callable can be divinded into 4 categories.
 @ Function Pointer -
 A function can bbe a callable object to pass to the thread constructor for inititalizing a thread.
 
-#include<bits/stdc++.h>
-#include<thread>
-using namespace std;
+    #include<bits/stdc++.h>
+    #include<thread>
+    using namespace std;
 
-void func(int n){
-cout << n;
-}
+    void func(int n){
+    cout << n;
+    }
 
-int main(){
-thread t(func, 4);
-t.join();
-return 0;
-}
+    int main(){
+    thread t(func, 4);
+    t.join();
+    return 0;
+    }
 
 output - 4
 
@@ -203,16 +202,16 @@ Thread object can also use a lanbda expressoin as a callable which can be passes
 #include<thread>
 using namespace std;
 
-int main(){
-int n = 3;
-thread t([] (int n) {
-cout << n;
-});
+    int main(){
+    int n = 3;
+    thread t([] (int n) {
+    cout << n;
+    });
 
-    t.join();
-    return 0;
+        t.join();
+        return 0;
 
-}
+    }
 
 output - 3
 
@@ -221,43 +220,43 @@ Lambda Syntax - ( [capture-clause] (parameter) -> return-type{} )
 @Capture Clause -
 A lambda expression can have more power than an ordinary function by more power than an ordinary function by having access to variables from the enclosing scope we can capture extrenal variables friom the enclosing scope in there ways usning capture clause.
 
-1. [&] - Capture all external variables by reference.
-2. [=] - Capture all external variables by values.
-3. [a, &b] - Capture by both value and reference 'a' by value and 'b' by reference.
+1.  [&] - Capture all external variables by reference.
+2.  [=] - Capture all external variables by values.
+3.  [a, &b] - Capture by both value and reference 'a' by value and 'b' by reference.
 
-#include<bits/stdc++.h>
-#include<thread>
-using namespace std;
+    #include<bits/stdc++.h>
+    #include<thread>
+    using namespace std;
 
-void print(vector<int> v){
-for(auto x:v) cout << " ";
-cout << encl;
-}
-
-int main(){
-vector<int> v1, v2;
-
-    auto byRef = [&] (int n) {            // by reference change will happen.
-        v1.push_back(m);
-        v2.push_back(m);
+    void print(vector<int> v){
+    for(auto x:v) cout << " ";
+    cout << encl;
     }
 
-    auto byVal = [=] (int n){             // by value changes doesn't affect the original vector.
-        v1.push_back(m);
-        v2.push_back(m);
+    int main(){
+    vector<int> v1, v2;
+
+        auto byRef = [&] (int n) {            // by reference change will happen.
+            v1.push_back(m);
+            v2.push_back(m);
+        }
+
+        auto byVal = [=] (int n){             // by value changes doesn't affect the original vector.
+            v1.push_back(m);
+            v2.push_back(m);
+        }
+
+        auto mixed = [v1, &v2] (int n){       // only by reference changes will happen.
+            v1.push_back(m);
+            v2.push_back(m);
+        }
+
+        byRef(20);
+        byVal(234);
+        mixed(10);
+        return 0;
+
     }
-
-    auto mixed = [v1, &v2] (int n){       // only by reference changes will happen.
-        v1.push_back(m);
-        v2.push_back(m);
-    }
-
-    byRef(20);
-    byVal(234);
-    mixed(10);
-    return 0;
-
-}
 
 output -
 20
@@ -265,79 +264,82 @@ output -
 
 @ Sort vector using Lambda
 
-#include <bits/stdc++.h>
-#include<thread>
-using namespace std;
+    #include <bits/stdc++.h>
+    #include<thread>
+    using namespace std;
 
-int main(){
-vector <int> v = {5, 1, 8, 3, 9, 2};
+    int main(){
+    vector <int> v = {5, 1, 8, 3, 9, 2};
 
-    sort (v.begin(), v.end(), [](const int &a, const int &b){
-        return a < b;        //1, 2, 3, 5, 8, 9
-        //return a > b;      //9, 8, 5, 3, 2, 1
-    })
+        sort (v.begin(), v.end(), [](const int &a, const int &b){
+            return a < b;        //1, 2, 3, 5, 8, 9
+            //return a > b;      //9, 8, 5, 3, 2, 1
+        })
 
-}
+    }
 
 @Function Object -
 Function object or Functors can also be used for a thread as callable. To make funtion callable we need to overload the operator parantheses operator();
 
-#incude<bits/stdc++.h>
-#include<threads>
-using namespace std;
+    #incude<bits/stdc++.h>
+    #include<threads>
+    using namespace std;
 
-class SumFunctor{
-public:
-int n;
-sumFunctor (int a) : n(a){}
+    class SumFunctor{
+    public:
+    int n;
+    sumFunctor (int a) : n(a){}
 
-            void operator()() const{
-                cout << n;
-            }
+                void operator()() const{
+                    cout << n;
+                }
 
-};
+    };
 
-int main(){
-thread t(sumFunctor(3));
-t.join();
-return 0;
-}
+    int main(){
+    thread t(sumFunctor(3));
+    t.join();
+    return 0;
+    }
 
 output - 3
 
 @ Non-Static and Static Member Function
 We can also use thread using the non-static or static member functions of a class. For non-static member function, we need to create an object of a class but it's not necessary with static member functions.
 
-#include <iostream>
-#include <thread>
-​
-using namespace std;
-​
-class MyClass {
-public:
-void f1(int num) { //Non-Static
-cout << num << endl;
-}
-​
-static void f2(int num) { //Static
-cout << num;
-}
-};
-​
-int main() {
+    #include <iostream>
+    #include <thread>
+    using namespace std;
+    class MyClass {
 
-    MyClass obj;
+    public:
 
-    thread t1(&MyClass::f1, &obj, 3);
+    void f1(int num) { //Non-Static
 
-    t1.join();
+    cout << num << endl;
 
-    thread t2(&MyClass::f2, 7);
+    }
+    static void f2(int num) { //Static
 
-    t2.join();
-    return 0;
+    cout << num;
 
-}
+    }
+
+    };
+    int main() {
+
+        MyClass obj;
+
+        thread t1(&MyClass::f1, &obj, 3);
+
+        t1.join();
+
+        thread t2(&MyClass::f2, 7);
+
+        t2.join();
+        return 0;
+
+        }
 
 Output -
 3
