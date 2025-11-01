@@ -198,9 +198,9 @@ output - 4
 @Lambda Expression -
 Thread object can also use a lanbda expressoin as a callable which can be passes directly inside the thread object.
 
-#include<bits/stdc++.h>
-#include<thread>
-using namespace std;
+    #include<bits/stdc++.h>
+    #include<thread>
+    using namespace std;
 
     int main(){
     int n = 3;
@@ -224,39 +224,40 @@ A lambda expression can have more power than an ordinary function by more power 
 2.  [=] - Capture all external variables by values.
 3.  [a, &b] - Capture by both value and reference 'a' by value and 'b' by reference.
 
-    #include<bits/stdc++.h>
-    #include<thread>
-    using namespace std;
+        #include<bits/stdc++.h>
 
-    void print(vector<int> v){
-    for(auto x:v) cout << " ";
-    cout << encl;
-    }
+        #include<thread>
+        using namespace std;
 
-    int main(){
-    vector<int> v1, v2;
-
-        auto byRef = [&] (int n) {            // by reference change will happen.
-            v1.push_back(m);
-            v2.push_back(m);
+        void print(vector<int> v){
+        for(auto x:v) cout << " ";
+        cout << encl;
         }
 
-        auto byVal = [=] (int n){             // by value changes doesn't affect the original vector.
-            v1.push_back(m);
-            v2.push_back(m);
+        int main(){
+        vector<int> v1, v2;
+
+            auto byRef = [&] (int n) {            // by reference change will happen.
+                v1.push_back(m);
+                v2.push_back(m);
+            }
+
+            auto byVal = [=] (int n){             // by value changes doesn't affect the original vector.
+                v1.push_back(m);
+                v2.push_back(m);
+            }
+
+            auto mixed = [v1, &v2] (int n){       // only by reference changes will happen.
+                v1.push_back(m);
+                v2.push_back(m);
+            }
+
+            byRef(20);
+            byVal(234);
+            mixed(10);
+            return 0;
+
         }
-
-        auto mixed = [v1, &v2] (int n){       // only by reference changes will happen.
-            v1.push_back(m);
-            v2.push_back(m);
-        }
-
-        byRef(20);
-        byVal(234);
-        mixed(10);
-        return 0;
-
-    }
 
 output -
 20
